@@ -45,10 +45,10 @@ let Counter = () => {
           <Col xs={5}>
             {productsArr.map((product) => {
               return (
-                <Card className="shadow-lg">
+                <Card className="shadow-lg" key={Math.random()}>
                   <Card.Body>
                     <p>{product.title}</p>
-                    <img src={product.imageUrl} />
+                    <img src={product.imageUrl} alt="ImageHere" />
                     <p>{product.price}</p>
                     <Button variant="primary" className="m-1">
                       Add To Cart
