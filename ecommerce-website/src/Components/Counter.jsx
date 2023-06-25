@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
+import CartContext from "./Context/CartContext";
 let Counter = () => {
   const productsArr = [
     {
@@ -38,6 +39,14 @@ let Counter = () => {
         "https://prasadyash2411.github.io/ecom-website/img/Album%204.png",
     },
   ];
+  const ctx = useContext(CartContext);
+  const addToCart = (event) => {
+    const aIndex = productsArr.findIndex(
+      (item) => item.title === event.target.id
+    );
+    let add = productsArr[aIndex];
+    ctx.addItem({ ...add, quantity: 1 });
+  };
   return (
     <>
       <Container className="mt-3">
@@ -50,7 +59,12 @@ let Counter = () => {
                     <p>{product.title}</p>
                     <img src={product.imageUrl} alt="ImageHere" />
                     <p>{product.price}</p>
-                    <Button variant="primary" className="m-1">
+                    <Button
+                      id={product.title}
+                      variant="primary"
+                      className="m-1"
+                      onClick={addToCart}
+                    >
                       Add To Cart
                     </Button>
                   </Card.Body>

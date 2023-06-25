@@ -1,18 +1,24 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { Table } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-
-function Modal1(porps) {
+import CartContext from "./Context/CartContext";
+function Modal1() {
   let price = 0;
-  const [items, setItems] = useState(porps.products);
+  const ctx = useContext(CartContext);
+  //const [items, setItems] = useState(porps.products);
+  const items = ctx.items;
   const cartItemRemove = (e) => {
-    setItems(items.filter((item) => item.title !== e.target.id));
+    //setItems(items.filter((item) => item.title !== e.target.id));
+    ctx.removeItem(e.target.id);
   };
   useEffect(() => {}, [items]);
   items.forEach((element) => {
     price = price + Number(element.price) * Number(element.quantity);
   });
+  const clearCart = () => {
+    ctx.order();
+  };
   return (
     <div
       className="modal show"
@@ -29,7 +35,7 @@ function Modal1(porps) {
               </tr>
             </thead>
             <tbody>
-              {items.map((product) => {
+              {ctx.items.map((product) => {
                 return (
                   <tr key={Math.random()}>
                     <td>
@@ -65,7 +71,19 @@ function Modal1(porps) {
             <p>
               {"   "}Rs.{price}
             </p>
+            <br />
           </Modal.Footer>
+          <Button
+            variant="primary"
+            style={{
+              justifyContent: "center",
+              display: "flex",
+              marginLeft: "40%",
+            }}
+            onClick={clearCart}
+          >
+            Purchase
+          </Button>
         </h5>
       </Modal.Dialog>
     </div>
