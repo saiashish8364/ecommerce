@@ -50,7 +50,11 @@ function Modal1() {
                       <p style={{ mt: "25px" }}>{product.price}</p>
                     </td>
                     <td>
-                      <input type="number" style={{ width: "40px" }} />
+                      <input
+                        type="number"
+                        style={{ width: "40px" }}
+                        defaultValue={product.quantity}
+                      />
                       <Button
                         variant="danger"
                         id={product.title}

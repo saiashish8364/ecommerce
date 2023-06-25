@@ -4,6 +4,7 @@ const defaultCartState = {
   items: [],
   count: 0,
 };
+let c;
 const cartReducer = (state, action) => {
   if (action.type === "add") {
     let updatedItems;
@@ -15,21 +16,21 @@ const cartReducer = (state, action) => {
       return;
     } else {
       updatedItems = [...state.items, action.item];
-      state.count = Number(updatedItems.length);
+      c = Number(updatedItems.length);
     }
     return {
       items: updatedItems,
-      count: state.count,
+      count: c,
     };
   }
   if (action.type === "remove") {
     let updatedItems = state.items.filter(
       (item) => item.title !== action.title
     );
-    state.count = Number(updatedItems.length);
+    c = Number(updatedItems.length);
     return {
       items: updatedItems,
-      count: state.count,
+      count: c,
     };
   }
   if (action.type === "order") {
