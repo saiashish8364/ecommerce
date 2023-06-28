@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import CartContext from "./Context/CartContext";
+import { Link } from "react-router-dom";
 let Counter = () => {
   const productsArr = [
     {
@@ -57,7 +58,9 @@ let Counter = () => {
                 <Card className="shadow-lg" key={Math.random()}>
                   <Card.Body>
                     <p>{product.title}</p>
-                    <img src={product.imageUrl} alt="ImageHere" />
+                    <Link to={`/${product.title}`}>
+                      <img src={product.imageUrl} alt="ImageHere" />
+                    </Link>
                     <p>{product.price}</p>
                     <Button
                       id={product.title}

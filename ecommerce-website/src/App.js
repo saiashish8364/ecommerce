@@ -1,26 +1,18 @@
 import "./App.css";
 import { Button, Container, Navbar } from "react-bootstrap";
-//import Counter from "./Components/Counter";
 import { useState } from "react";
 import Cart from "./Components/Cart";
 import CartProvider from "./Components/Context/CartProvider";
-//import CartContext from "./Components/Context/CartContext";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Store from "./Components/Pages/Store";
 import About from "./Components/Pages/About";
 import Home from "./Components/Pages/Home";
 import ContactUs from "./Components/Pages/ContactUS";
+import { Route, Switch, NavLink } from "react-router-dom";
+import ProductDetails from "./Components/Pages/ProductDetails";
 
-const router = createBrowserRouter([
-  { path: "/", element: <Store /> },
-  { path: "/About", element: <About /> },
-  { path: "/Home", element: <Home /> },
-  { path: "/ContactUs", element: <ContactUs /> },
-]);
 function App() {
-  //const ctx = useContext(CartContext);
   const [showCart, setShowCart] = useState(false);
-  //  let count = ctx.count;
+
   const cartShow = (e) => {
     e.preventDefault();
     setShowCart(!showCart);
@@ -31,19 +23,47 @@ function App() {
       <CartProvider>
         <Navbar bg="dark" expand="sm" variant="dark">
           <Container>
-            <Navbar.Brand href="/Home">Home</Navbar.Brand>
-            <Navbar.Brand href="/">Store</Navbar.Brand>
-            <Navbar.Brand href="/About">About</Navbar.Brand>
-            <Navbar.Brand href="/ContactUs">Contact Us</Navbar.Brand>
-            <Navbar.Brand href="/">
-              <Button variant="light" onClick={cartShow}>
-                Cart
-              </Button>
+            <Navbar.Brand>
+              <NavLink to="/Home">Home</NavLink>
+            </Navbar.Brand>
+            <Navbar.Brand>
+              <NavLink to="/">Store</NavLink>
+            </Navbar.Brand>
+            <Navbar.Brand>
+              <NavLink to="/About">About</NavLink>
+            </Navbar.Brand>
+            <Navbar.Brand>
+              <NavLink to="/ContactUs">Contact Us</NavLink>
+            </Navbar.Brand>
+            <Navbar.Brand>
+              <NavLink to="/">
+                <Button variant="light" onClick={cartShow}>
+                  Cart
+                </Button>
+              </NavLink>
             </Navbar.Brand>
           </Container>
         </Navbar>
         {showCart && <Cart />}
-        <RouterProvider router={router} />
+        <main>
+          <Switch>
+            <Route path="/Home" exact>
+              <Home></Home>
+            </Route>
+            <Route path="/" exact>
+              <Store />
+            </Route>
+            <Route path="/About" exact>
+              <About />
+            </Route>
+            <Route path="/ContactUs" exact>
+              <ContactUs />
+            </Route>
+            <Route path="/:productTitle" exact>
+              <ProductDetails />
+            </Route>
+          </Switch>
+        </main>
       </CartProvider>
     </>
   );
