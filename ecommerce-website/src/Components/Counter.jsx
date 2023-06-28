@@ -50,33 +50,49 @@ let Counter = () => {
   };
   return (
     <>
-      <Container className="mt-3">
-        <Row>
-          <Col xs={5}>
-            {productsArr.map((product) => {
-              return (
-                <Card className="shadow-lg" key={Math.random()}>
-                  <Card.Body>
-                    <p>{product.title}</p>
-                    <Link to={`/${product.title}`}>
-                      <img src={product.imageUrl} alt="ImageHere" />
-                    </Link>
-                    <p>{product.price}</p>
-                    <Button
-                      id={product.title}
-                      variant="primary"
-                      className="m-1"
-                      onClick={addToCart}
-                    >
-                      Add To Cart
-                    </Button>
-                  </Card.Body>
-                </Card>
-              );
-            })}
-          </Col>
-        </Row>
-      </Container>
+      <section
+        style={{
+          display: "grid",
+
+          padding: "25px",
+        }}
+      >
+        <Container className="mt-6">
+          <Row>
+            <Col xs={5}>
+              {productsArr.map((product) => {
+                return (
+                  <Card
+                    style={{ width: "175%" }}
+                    className="shadow-lg"
+                    key={Math.random()}
+                  >
+                    <Card.Body>
+                      <p>{product.title}</p>
+                      <Link to={`/${product.title}`}>
+                        <img
+                          style={{ width: "75%", height: "75%" }}
+                          src={product.imageUrl}
+                          alt="ImageHere"
+                        />
+                      </Link>
+                      <p>{product.price}</p>
+                      <Button
+                        id={product.title}
+                        variant="primary"
+                        className="m-1"
+                        onClick={addToCart}
+                      >
+                        Add To Cart
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                );
+              })}
+            </Col>
+          </Row>
+        </Container>
+      </section>
     </>
   );
 };

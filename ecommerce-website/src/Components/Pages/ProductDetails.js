@@ -34,12 +34,12 @@ const productsArr = [
 ];
 const ProductDetails = () => {
   const params = useParams();
-  console.log(params);
+
   let index = productsArr.findIndex(
     (item) => item.title === params.productTitle
   );
   let element = productsArr[index];
-  console.log(element);
+
   return (
     <>
       <section>
@@ -53,7 +53,6 @@ const ProductDetails = () => {
           <h1>{element.price}</h1>
         </div>
       </section>
-
       <div>
         <section>
           <h1>Reviews</h1>
