@@ -9,10 +9,13 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Store from "./Components/Pages/Store";
 import About from "./Components/Pages/About";
 import Home from "./Components/Pages/Home";
+import ContactUs from "./Components/Pages/ContactUS";
+
 const router = createBrowserRouter([
   { path: "/", element: <Store /> },
   { path: "/About", element: <About /> },
   { path: "/Home", element: <Home /> },
+  { path: "/ContactUs", element: <ContactUs /> },
 ]);
 function App() {
   //const ctx = useContext(CartContext);
@@ -31,6 +34,7 @@ function App() {
             <Navbar.Brand href="/Home">Home</Navbar.Brand>
             <Navbar.Brand href="/">Store</Navbar.Brand>
             <Navbar.Brand href="/About">About</Navbar.Brand>
+            <Navbar.Brand href="/ContactUs">Contact Us</Navbar.Brand>
             <Navbar.Brand href="/">
               <Button variant="light" onClick={cartShow}>
                 Cart
