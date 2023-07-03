@@ -9,6 +9,7 @@ import Home from "./Components/Pages/Home";
 import ContactUs from "./Components/Pages/ContactUS";
 import { Route, Switch, NavLink } from "react-router-dom";
 import ProductDetails from "./Components/Pages/ProductDetails";
+import LogIn from "./Components/LogIn";
 
 function App() {
   const [showCart, setShowCart] = useState(false);
@@ -36,6 +37,9 @@ function App() {
               <NavLink to="/ContactUs">Contact Us</NavLink>
             </Navbar.Brand>
             <Navbar.Brand>
+              <NavLink to="/LogIn">LogIn</NavLink>
+            </Navbar.Brand>
+            <Navbar.Brand>
               <NavLink to="/">
                 <Button variant="light" onClick={cartShow}>
                   Cart
@@ -58,6 +62,9 @@ function App() {
             </Route>
             <Route path="/ContactUs" exact>
               <ContactUs />
+            </Route>
+            <Route path="/LogIn" exact>
+              <LogIn />
             </Route>
             <Route path="/:productTitle" exact>
               <ProductDetails />

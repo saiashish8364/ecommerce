@@ -1,5 +1,5 @@
 import CartContext from "./CartContext";
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 const defaultCartState = {
   items: [],
   count: 0,
@@ -42,6 +42,8 @@ const cartReducer = (state, action) => {
   return defaultCartState;
 };
 const CartProvider = (props) => {
+  const inititalToken = localStorage.getItem("token");
+  const [token, setToken] = useState(inititalToken);
   const [cartState, dispactionCartAction] = useReducer(
     cartReducer,
     defaultCartState
@@ -55,8 +57,14 @@ const CartProvider = (props) => {
   const orderItems = () => {
     dispactionCartAction({ type: "order" });
   };
+  const loginHandler = (token) => {
+    setToken(token);
+    console.log(token);
+  };
   const cartContext = {
     items: cartState.items,
+    token: token,
+    login: loginHandler,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCart,
     order: orderItems,
