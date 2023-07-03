@@ -50,14 +50,13 @@ const cartReducer = (state, action) => {
 const CartProvider = (props) => {
   useEffect(() => {
     let getEmail = localStorage.getItem("email");
-    const url = `https://crudcrud.com/api/0ab11f16e9f844ad82eee5c28ea17097/${getEmail}`;
+    const url = `https://crudcrud.com/api/359fd6c442074d1ead4e35a6fb192df7/${getEmail}`;
 
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
         if (data) {
           data.forEach((element) => {
-            console.log(element.title);
             dispactionCartAction({ type: "add", item: element });
           });
         }
@@ -78,7 +77,7 @@ const CartProvider = (props) => {
   const addItemToCartHandler = (item) => {
     dispactionCartAction({ type: "add", item: item });
     let crud = localStorage.getItem("email");
-    let url = `https://crudcrud.com/api/0ab11f16e9f844ad82eee5c28ea17097/${crud}`;
+    let url = `https://crudcrud.com/api/359fd6c442074d1ead4e35a6fb192df7/${crud}`;
     fetch(url, {
       method: "POST",
       headers: {
