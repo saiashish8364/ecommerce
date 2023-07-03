@@ -1,5 +1,10 @@
 import Counter from "../Counter";
+
 function Store() {
-  return <Counter />;
+  return (
+    <>
+      <Counter />
+    </>
+  );
 }
 export default Store;

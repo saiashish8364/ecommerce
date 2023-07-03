@@ -28,6 +28,7 @@ const LogIn = () => {
     )
       .then((res) => {
         if (res.ok) {
+          ctx.isloggedIn = true;
           return res.json();
         } else {
           return res.json().then(() => {
@@ -38,7 +39,6 @@ const LogIn = () => {
       })
       .then((data) => {
         ctx.login(data.idToken);
-        localStorage.setItem("token", data.idToken);
         history.replace("/");
       })
       .catch((err) => {

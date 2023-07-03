@@ -4,16 +4,21 @@ const defaultCartState = {
   items: [],
   count: 0,
 };
-let c;
+
 const cartReducer = (state, action) => {
+  let c = state.items.length;
   if (action.type === "add") {
     let updatedItems;
-    const existingCartItemIndex = state.items.filter(
+    const existingCartItemIndex = state.items.findIndex(
       (item) => item.title === action.item.title
     );
+
     const existingCartItem = state.items[existingCartItemIndex];
+
     if (existingCartItem) {
-      return;
+      window.alert("item already exist in cart!");
+      updatedItems = [...state.items];
+      c = Number(updatedItems.length);
     } else {
       updatedItems = [...state.items, action.item];
       c = Number(updatedItems.length);
@@ -28,6 +33,7 @@ const cartReducer = (state, action) => {
       (item) => item.title !== action.title
     );
     c = Number(updatedItems.length);
+
     return {
       items: updatedItems,
       count: c,
@@ -44,10 +50,12 @@ const cartReducer = (state, action) => {
 const CartProvider = (props) => {
   const inititalToken = localStorage.getItem("token");
   const [token, setToken] = useState(inititalToken);
+  const userIsLoggedIn = !!token;
   const [cartState, dispactionCartAction] = useReducer(
     cartReducer,
     defaultCartState
   );
+
   const addItemToCartHandler = (item) => {
     dispactionCartAction({ type: "add", item: item });
   };
@@ -59,11 +67,12 @@ const CartProvider = (props) => {
   };
   const loginHandler = (token) => {
     setToken(token);
-    console.log(token);
+    localStorage.setItem("token", token);
   };
   const cartContext = {
     items: cartState.items,
     token: token,
+    isLoggedin: userIsLoggedIn,
     login: loginHandler,
     addItem: addItemToCartHandler,
     removeItem: removeItemFromCart,
