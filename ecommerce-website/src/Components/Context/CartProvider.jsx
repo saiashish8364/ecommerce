@@ -1,5 +1,5 @@
 import CartContext from "./CartContext";
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 const defaultCartState = {
   items: [],
   count: 0,
@@ -48,6 +48,25 @@ const cartReducer = (state, action) => {
   return defaultCartState;
 };
 const CartProvider = (props) => {
+  useEffect(() => {
+    let getEmail = localStorage.getItem("email");
+    const url = `https://crudcrud.com/api/0ab11f16e9f844ad82eee5c28ea17097/${getEmail}`;
+
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          data.forEach((element) => {
+            console.log(element.title);
+            dispactionCartAction({ type: "add", item: element });
+          });
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+  console.log();
   const inititalToken = localStorage.getItem("token");
   const [token, setToken] = useState(inititalToken);
   const userIsLoggedIn = !!token;
@@ -58,6 +77,15 @@ const CartProvider = (props) => {
 
   const addItemToCartHandler = (item) => {
     dispactionCartAction({ type: "add", item: item });
+    let crud = localStorage.getItem("email");
+    let url = `https://crudcrud.com/api/0ab11f16e9f844ad82eee5c28ea17097/${crud}`;
+    fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(item),
+    });
   };
   const removeItemFromCart = (title) => {
     dispactionCartAction({ type: "remove", title: title });

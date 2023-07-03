@@ -19,7 +19,6 @@ function App() {
   itemsCount = ctx.count;
   const tok = localStorage.getItem("token");
   const isLogin = !!tok;
-  console.log(isLogin);
   const cartShow = (e) => {
     e.preventDefault();
     setShowCart(!showCart);

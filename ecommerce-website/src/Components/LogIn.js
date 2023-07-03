@@ -1,7 +1,7 @@
 import { useRef, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import CartContext from "./Context/CartContext";
-
+let email = "";
 const LogIn = () => {
   const ctx = useContext(CartContext);
   const history = useHistory();
@@ -12,6 +12,13 @@ const LogIn = () => {
     e.preventDefault();
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
+
+    for (let i = 0; i < enteredEmail.length; i++) {
+      if (enteredEmail[i] !== "@" && enteredEmail[i] !== ".") {
+        email = String(email) + String(enteredEmail[i]);
+      }
+    }
+    localStorage.setItem("email", email);
     await fetch(
       "https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCLo-iRYfevzs5rYHOPaSovU-nFIPTtxyA",
       {
