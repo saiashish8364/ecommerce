@@ -50,7 +50,7 @@ const cartReducer = (state, action) => {
 const CartProvider = (props) => {
   useEffect(() => {
     let getEmail = localStorage.getItem("email");
-    const url = `https://crudcrud.com/api/359fd6c442074d1ead4e35a6fb192df7/${getEmail}`;
+    const url = `https://crudcrud.com/api/bd027654a10a43cc8589c734f271da98/${getEmail}`;
 
     fetch(url)
       .then((response) => response.json())
@@ -76,15 +76,34 @@ const CartProvider = (props) => {
 
   const addItemToCartHandler = (item) => {
     dispactionCartAction({ type: "add", item: item });
-    let crud = localStorage.getItem("email");
-    let url = `https://crudcrud.com/api/359fd6c442074d1ead4e35a6fb192df7/${crud}`;
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(item),
-    });
+    let getEmail = localStorage.getItem("email");
+    fetch(
+      `https://crudcrud.com/api/bd027654a10a43cc8589c734f271da98/${getEmail}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        if (data) {
+          let x = data.findIndex((element) => {
+            return item.title === element.title;
+          });
+          if (data[x]) {
+            return;
+          } else {
+            let crud = localStorage.getItem("email");
+            let url = `https://crudcrud.com/api/bd027654a10a43cc8589c734f271da98/${crud}`;
+            fetch(url, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(item),
+            });
+          }
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+      });
   };
   const removeItemFromCart = (title) => {
     dispactionCartAction({ type: "remove", title: title });
